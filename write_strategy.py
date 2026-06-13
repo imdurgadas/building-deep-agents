@@ -40,7 +40,7 @@ FORMAT: Return structured JSON. For each issue: line, category, description, sev
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-def estimate_prompt_tokens(text: str, model_name: str = "gemini-2.0-flash") -> dict:
+def estimate_prompt_tokens(text: str, model_name: str = "gemini-3.5-flash") -> dict:
     """
     Estimate token count for a prompt using the model's tokenizer.
     
@@ -51,7 +51,7 @@ def estimate_prompt_tokens(text: str, model_name: str = "gemini-2.0-flash") -> d
     char_estimate = len(text)
     token_estimate = char_estimate // 4
     
-    # Cost estimate at typical rates ($0.075 per 1M tokens for gemini-2.0-flash)
+    # Cost estimate at typical rates ($0.075 per 1M tokens for gemini-3.5-flash)
     cost_per_million = 0.075
     cost_per_call = (token_estimate / 1_000_000) * cost_per_million
     

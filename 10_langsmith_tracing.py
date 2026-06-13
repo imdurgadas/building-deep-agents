@@ -69,7 +69,7 @@ def demonstrate_tracing():
     """
     configure_langsmith(project_name="DevPulse-Demo", enable=True)
     
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash", temperature=0)
     
     pr_number = 847
     run_id = "demo_run_001"

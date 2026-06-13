@@ -91,7 +91,7 @@ def create_child_agent_llm():
     Using a cheaper model here keeps the overall cost of reviewing 23 files reasonable.
     """
     return ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash",
+        model="gemini-3.5-flash",
         temperature=0,
         max_retries=2,
         request_timeout=45

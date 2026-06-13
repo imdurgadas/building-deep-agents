@@ -45,7 +45,7 @@ class PRReviewPlan(BaseModel):
 # ---- LLM Setup ----
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash",
+    model="gemini-3.5-flash",
     temperature=0,  # Deterministic output for planning — no creativity needed here
     max_retries=3
 )

@@ -11,31 +11,31 @@ def build_resilient_llm() -> BaseChatModel:
     Build a multi-model fallback chain for production resilience.
     
     Strategy:
-    - Primary: gemini-2.0-flash (fast, cheap, low latency)
-    - Fallback 1: gemini-1.5-pro (higher rate limits, longer context)
-    - Fallback 2: gemini-1.5-flash (emergency fallback if both above fail)
+    - Primary: gemini-3.5-flash (fast, cheap, low latency)
+    - Fallback 1: gemini-2.5-pro (higher rate limits, longer context)
+    - Fallback 2: gemini-2.5-flash (emergency fallback if both above fail)
     
     Why this order:
-    - gemini-2.0-flash is the fastest and cheapest for most reasoning tasks
-    - gemini-1.5-pro has better rate limits on the Tier 1 API plan
-    - gemini-1.5-flash as last resort — still capable for most review tasks
+    - gemini-3.5-flash is the fastest and cheapest for most reasoning tasks
+    - gemini-2.5-pro has better rate limits on the Tier 1 API plan
+    - gemini-2.5-flash as last resort — still capable for most review tasks
     """
     primary = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash",
+        model="gemini-3.5-flash",
         temperature=0,
         max_retries=2,  # Retry twice before falling back
         request_timeout=30  # 30-second timeout per call
     )
     
     fallback_pro = ChatGoogleGenerativeAI(
-        model="gemini-1.5-pro",
+        model="gemini-2.5-pro",
         temperature=0,
         max_retries=2,
         request_timeout=60  # More generous timeout for the larger model
     )
     
     fallback_flash = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-flash",
         temperature=0,
         max_retries=1,
         request_timeout=30

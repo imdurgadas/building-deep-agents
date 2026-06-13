@@ -14,15 +14,15 @@ class CostTracker:
     Tracks API usage costs for a DevPulse review run.
     
     Pricing reference (approximate, as of 2026):
-    - gemini-2.0-flash: $0.075 per 1M input tokens, $0.30 per 1M output tokens
-    - gemini-1.5-pro:   $1.25 per 1M input tokens, $5.00 per 1M output tokens
+    - gemini-3.5-flash: $0.075 per 1M input tokens, $0.30 per 1M output tokens
+    - gemini-2.5-pro:   $1.25 per 1M input tokens, $5.00 per 1M output tokens
     """
     
     # Per-million-token pricing
     PRICING = {
-        "gemini-2.0-flash": {"input": 0.075, "output": 0.30},
-        "gemini-1.5-pro":   {"input": 1.25,  "output": 5.00},
-        "gemini-1.5-flash": {"input": 0.075, "output": 0.30},
+        "gemini-3.5-flash": {"input": 0.075, "output": 0.30},
+        "gemini-2.5-pro":   {"input": 1.25,  "output": 5.00},
+        "gemini-2.5-flash": {"input": 0.075, "output": 0.30},
     }
     
     max_budget_usd: float = 2.00  # Default: $2 per PR review
@@ -34,7 +34,7 @@ class CostTracker:
     
     def record_llm_call(self, model: str, input_tokens: int, output_tokens: int) -> None:
         """Record tokens used by an LLM call and update cost estimate."""
-        pricing = self.PRICING.get(model, self.PRICING["gemini-2.0-flash"])
+        pricing = self.PRICING.get(model, self.PRICING["gemini-3.5-flash"])
         call_cost = (
             (input_tokens / 1_000_000) * pricing["input"] +
             (output_tokens / 1_000_000) * pricing["output"]
@@ -169,7 +169,7 @@ def execute_with_cost_safety(
             simulated_output_tokens = 350 + (iteration * 50)
             
             cost_tracker.record_llm_call(
-                model="gemini-2.0-flash",
+                model="gemini-3.5-flash",
                 input_tokens=simulated_input_tokens,
                 output_tokens=simulated_output_tokens
             )

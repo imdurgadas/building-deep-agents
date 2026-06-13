@@ -53,7 +53,7 @@ def compress_message_history(
     messages_to_keep = non_system[split_point:]
     
     # Generate a compact summary of the compressed messages
-    summarizer = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    summarizer = ChatGoogleGenerativeAI(model="gemini-3.5-flash", temperature=0)
     
     history_text = "\n".join(
         f"{type(m).__name__}: {str(m.content)[:500]}"

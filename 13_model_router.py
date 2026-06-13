@@ -16,10 +16,10 @@ class ModelRouter:
     
     Model selection logic:
     ┌──────────────────────────────────────────────────────────────┐
-    │ CRITICAL security  → gemini-1.5-pro  (best reasoning depth) │
-    │ HIGH security/perf → gemini-2.0-flash (fast + capable)      │  
-    │ MEDIUM security    → gemini-2.0-flash                       │
-    │ Style/test checks  → gemini-2.0-flash (no deep reasoning)   │
+    │ CRITICAL security  → gemini-2.5-pro  (best reasoning depth) │
+    │ HIGH security/perf → gemini-3.5-flash (fast + capable)      │  
+    │ MEDIUM security    → gemini-3.5-flash                       │
+    │ Style/test checks  → gemini-3.5-flash (no deep reasoning)   │
     └──────────────────────────────────────────────────────────────┘
     
     Cost impact: routing correctly can reduce per-review costs by 60-70%
@@ -30,12 +30,12 @@ class ModelRouter:
         # Model instances — created once, reused across tasks
         self._models = {
             "fast": ChatGoogleGenerativeAI(
-                model="gemini-2.0-flash",
+                model="gemini-3.5-flash",
                 temperature=0,
                 max_retries=2
             ),
             "smart": ChatGoogleGenerativeAI(
-                model="gemini-1.5-pro",
+                model="gemini-2.5-pro",
                 temperature=0,
                 max_retries=2
             )
@@ -94,8 +94,8 @@ class ModelRouter:
         Estimate cost savings from intelligent routing vs. using the smart model for everything.
         """
         # Approximate token costs per task
-        SMART_COST_PER_TASK = 0.015  # ~$0.015 per task with gemini-1.5-pro
-        FAST_COST_PER_TASK = 0.002   # ~$0.002 per task with gemini-2.0-flash
+        SMART_COST_PER_TASK = 0.015  # ~$0.015 per task with gemini-2.5-pro
+        FAST_COST_PER_TASK = 0.002   # ~$0.002 per task with gemini-3.5-flash
         
         routing_cost = 0.0
         uniform_smart_cost = len(tasks) * SMART_COST_PER_TASK
