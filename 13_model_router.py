@@ -16,7 +16,7 @@ class ModelRouter:
     
     Model selection logic:
     ┌──────────────────────────────────────────────────────────────┐
-    │ CRITICAL security  → gemini-2.5-pro  (best reasoning depth) │
+    │ CRITICAL security  → gemini-2.5-flash (best reasoning depth) │
     │ HIGH security/perf → gemini-3.5-flash (fast + capable)      │  
     │ MEDIUM security    → gemini-3.5-flash                       │
     │ Style/test checks  → gemini-3.5-flash (no deep reasoning)   │
@@ -35,7 +35,7 @@ class ModelRouter:
                 max_retries=2
             ),
             "smart": ChatGoogleGenerativeAI(
-                model="gemini-2.5-pro",
+                model="gemini-2.5-flash",
                 temperature=0,
                 max_retries=2
             )
@@ -94,7 +94,7 @@ class ModelRouter:
         Estimate cost savings from intelligent routing vs. using the smart model for everything.
         """
         # Approximate token costs per task
-        SMART_COST_PER_TASK = 0.015  # ~$0.015 per task with gemini-2.5-pro
+        SMART_COST_PER_TASK = 0.002  # ~$0.002 per task with gemini-2.5-flash
         FAST_COST_PER_TASK = 0.002   # ~$0.002 per task with gemini-3.5-flash
         
         routing_cost = 0.0

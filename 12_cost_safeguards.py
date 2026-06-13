@@ -15,14 +15,15 @@ class CostTracker:
     
     Pricing reference (approximate, as of 2026):
     - gemini-3.5-flash: $0.075 per 1M input tokens, $0.30 per 1M output tokens
-    - gemini-2.5-pro:   $1.25 per 1M input tokens, $5.00 per 1M output tokens
+    - gemini-2.5-flash: $0.075 per 1M input tokens, $0.30 per 1M output tokens
+    - gemini-flash-latest: $0.075 per 1M input tokens, $0.30 per 1M output tokens
     """
     
     # Per-million-token pricing
     PRICING = {
         "gemini-3.5-flash": {"input": 0.075, "output": 0.30},
-        "gemini-2.5-pro":   {"input": 1.25,  "output": 5.00},
         "gemini-2.5-flash": {"input": 0.075, "output": 0.30},
+        "gemini-flash-latest": {"input": 0.075, "output": 0.30},
     }
     
     max_budget_usd: float = 2.00  # Default: $2 per PR review

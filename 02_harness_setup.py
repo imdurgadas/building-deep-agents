@@ -12,13 +12,13 @@ def build_resilient_llm() -> BaseChatModel:
     
     Strategy:
     - Primary: gemini-3.5-flash (fast, cheap, low latency)
-    - Fallback 1: gemini-2.5-pro (higher rate limits, longer context)
-    - Fallback 2: gemini-2.5-flash (emergency fallback if both above fail)
+    - Fallback 1: gemini-2.5-flash (previous generation stable)
+    - Fallback 2: gemini-flash-latest (emergency fallback if both above fail)
     
     Why this order:
     - gemini-3.5-flash is the fastest and cheapest for most reasoning tasks
-    - gemini-2.5-pro has better rate limits on the Tier 1 API plan
-    - gemini-2.5-flash as last resort — still capable for most review tasks
+    - gemini-2.5-flash is still highly capable for general reasoning
+    - gemini-flash-latest as last resort — still capable for most review tasks
     """
     primary = ChatGoogleGenerativeAI(
         model="gemini-3.5-flash",
@@ -28,14 +28,14 @@ def build_resilient_llm() -> BaseChatModel:
     )
     
     fallback_pro = ChatGoogleGenerativeAI(
-        model="gemini-2.5-pro",
+        model="gemini-2.5-flash",
         temperature=0,
         max_retries=2,
         request_timeout=60  # More generous timeout for the larger model
     )
     
     fallback_flash = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+        model="gemini-flash-latest",
         temperature=0,
         max_retries=1,
         request_timeout=30
