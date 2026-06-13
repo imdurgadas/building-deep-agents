@@ -1,0 +1,11 @@
+# LangChain & LangGraph Core Packages
+langchain-core>=0.3.0
+langgraph>=0.2.0
+
+# Integration Packages
+langchain-google-genai>=2.0.0
+
+# Helper Libraries
+pydantic>=2.0.0
+requests>=2.30.0
+python-dotenv>=1.0.0
